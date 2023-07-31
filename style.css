@@ -27,8 +27,13 @@ body {
   color: white;
   font-size: 32px;
   font-weight: 600;
+  position: relative;
 }
-
+.screen .output {
+  position: absolute;
+  bottom: 0;
+  right: 5;
+}
 .calculator .buttons {
   display: flex;
   flex-direction: column;
