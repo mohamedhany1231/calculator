@@ -18,6 +18,8 @@ body {
   height: 50vh;
   width: 35%;
   border-radius: 5px;
+  display: flex;
+  flex-direction: column;
 }
 .calculator .screen {
   height: 20%;
@@ -54,6 +56,8 @@ body {
   margin: 5px;
 }
 
-.buttons .row5 button:last-child {
+.buttons .row5 button:first-child,
+.buttons .row1 button:last-child {
   flex: 2 2 40%;
+  background-color: goldenrod;
 }

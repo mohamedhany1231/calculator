@@ -1,6 +1,7 @@
 let screen = document.querySelector(".screen .input");
 let screenOutput = document.querySelector(".screen .output");
 let arithmeticSigns = ["+", "-", "*", "/"];
+let backSpaceBtn = document.getElementById("backSpace");
 
 // create numberss
 for (i = 1; i < 10; i++) {
@@ -22,17 +23,26 @@ buttons.forEach((btn) => {
     btn.addEventListener("click", function () {
       evaluate();
     });
+  } else if (btn == backSpaceBtn) {
+    btn.addEventListener("click", backSpace);
   } else btn.addEventListener("click", addToScreen);
 });
 
 // functions
 function addToScreen() {
-  let previousInput = screen.innerText.slice(-1);
+  let inputs = screen.innerText.split(" ");
+  console.log(inputs);
   if (
     arithmeticSigns.includes(this.innerText) ||
-    arithmeticSigns.includes(previousInput)
+    arithmeticSigns.includes(inputs[inputs.length - 1])
   ) {
-    screen.innerText += ` ${this.innerText} `;
+    if (
+      (inputs[inputs.length - 1] == "-" || inputs[inputs.length - 1] == "+") &&
+      (arithmeticSigns.includes(inputs[inputs.length - 2]) ||
+        inputs[inputs.length - 2] == null)
+    ) {
+      screen.innerText += this.innerText;
+    } else screen.innerText += ` ${this.innerText}`;
   } else {
     screen.innerText += this.innerText;
   }
@@ -40,6 +50,9 @@ function addToScreen() {
 function clearScreen() {
   screen.innerText = "";
   screenOutput.innerText = "";
+}
+function backSpace() {
+  screen.innerText = screen.innerText.slice(0, -1);
 }
 function add(a, b) {
   return parseFloat(a) + parseFloat(b);
