@@ -2,7 +2,6 @@ let screen = document.querySelector(".screen .input");
 let screenOutput = document.querySelector(".screen .output");
 let arithmeticSigns = ["+", "-", "*", "/"];
 let backSpaceBtn = document.getElementById("backSpace");
-
 // create numberss
 for (i = 1; i < 10; i++) {
   let row = document.querySelector(`.row${2 + Math.floor((i - 1) / 3)}`);
@@ -13,7 +12,7 @@ for (i = 1; i < 10; i++) {
   row.insertBefore(button, lastElm);
 }
 
-// register numbers to screen
+// buttons event listener
 let buttons = document.querySelectorAll("button");
 
 buttons.forEach((btn) => {
@@ -29,9 +28,16 @@ buttons.forEach((btn) => {
 });
 
 // functions
+let intervalId;
+function highlightBtn(btn) {
+  btn.classList.add("pressed");
+}
+
 function addToScreen() {
+  highlightBtn(this);
+  setTimeout(() => this.classList.remove("pressed"), 100);
+
   let inputs = screen.innerText.split(" ");
-  console.log(inputs);
   if (
     arithmeticSigns.includes(this.innerText) ||
     arithmeticSigns.includes(inputs[inputs.length - 1])
@@ -78,6 +84,10 @@ function evaluate(input = screen.innerText) {
   plusMinus(inputsArr);
 
   let output = (+inputsArr[0]).toFixed(6);
+  if (isNaN(output)) {
+    screenOutput.innerText = "error";
+    return;
+  }
   screenOutput.innerText = +output;
 }
 

@@ -16,15 +16,15 @@ body {
   padding: 5px;
   background-color: rgb(146, 146, 146);
   height: 50vh;
-  width: 35%;
+  width: 25%;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
 }
 .calculator .screen {
   height: 20%;
-  background-color: rgb(0, 145, 7);
-  border: 3px solid #5e855f;
+  background-color: #80a17f;
+  border: 3px solid #688068;
   margin: 5px;
   color: white;
   font-size: 32px;
@@ -54,10 +54,16 @@ body {
   font-weight: bold;
   flex: 1 1 20%;
   margin: 5px;
+  border: 2px solid transparent;
 }
 
 .buttons .row5 button:first-child,
 .buttons .row1 button:last-child {
   flex: 2 2 40%;
   background-color: goldenrod;
+}
+
+button.pressed {
+  transform: scale(1.1);
+  border-color: orange;
 }
