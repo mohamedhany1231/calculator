@@ -59,10 +59,12 @@ function divide(a, b) {
 
 function evaluate(input = screen.innerText) {
   let inputsArr = input.split(" ");
+  removeExtraDots(inputsArr);
   removeSignsFromEnd(inputsArr);
-  inputsArr = multiplyDivide(inputsArr);
-  inputsArr = plusMinus(inputsArr);
-  let output = inputsArr[0].toFixed(6);
+  multiplyDivide(inputsArr);
+  plusMinus(inputsArr);
+
+  let output = (+inputsArr[0]).toFixed(6);
   screenOutput.innerText = +output;
 }
 
@@ -97,10 +99,22 @@ function plusMinus(arr) {
   return arr;
 }
 
-function removeSignsFromEnd(inputsArr) {
-  if (arithmeticSigns.includes(inputsArr[inputsArr.length - 1])) {
-    inputsArr.pop();
+function removeSignsFromEnd(arr) {
+  if (arithmeticSigns.includes(arr[arr.length - 1])) {
+    arr.pop();
     screen.innerText = screen.innerText.slice(0, -1);
-    removeSignsFromEnd(inputsArr);
+    removeSignsFromEnd(arr);
   }
+}
+function removeExtraDots(arr) {
+  arr = arr.map((num) => {
+    let testArr = num.split(".");
+    if (testArr.length > 1) {
+      testArr.splice(1, 0, ".");
+      let fixedNum = testArr.join("");
+      return fixedNum;
+    }
+    return num;
+  });
+  return arr;
 }
