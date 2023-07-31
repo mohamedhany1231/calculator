@@ -54,7 +54,6 @@ body {
   margin: 5px;
 }
 
-.buttons .row1 button:last-child,
 .buttons .row5 button:last-child {
   flex: 2 2 40%;
 }

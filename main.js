@@ -62,8 +62,8 @@ function evaluate(input = screen.innerText) {
   removeSignsFromEnd(inputsArr);
   inputsArr = multiplyDivide(inputsArr);
   inputsArr = plusMinus(inputsArr);
-  console.log(inputsArr);
-  screenOutput.innerText = inputsArr[0];
+  let output = inputsArr[0].toFixed(6);
+  screenOutput.innerText = +output;
 }
 
 function multiplyDivide(arr) {
