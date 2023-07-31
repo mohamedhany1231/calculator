@@ -43,20 +43,23 @@ function addToScreen() {
   setTimeout(() => this.classList.remove("pressed"), 100);
 
   let inputs = screen.innerText.split(" ");
-  if (
-    arithmeticSigns.includes(this.innerText) ||
-    arithmeticSigns.includes(inputs[inputs.length - 1])
-  ) {
-    if (
-      (inputs[inputs.length - 1] == "-" || inputs[inputs.length - 1] == "+") &&
-      (arithmeticSigns.includes(inputs[inputs.length - 2]) ||
-        inputs[inputs.length - 2] == null)
-    ) {
-      screen.innerText += this.innerText;
-    } else screen.innerText += ` ${this.innerText}`;
+  if (this.innerText == ".") if (containDots(inputs[inputs.length - 1])) return;
+
+  if (checkSpace(inputs, this.innerText)) {
+    screen.innerText += ` ${this.innerText} `;
   } else {
     screen.innerText += this.innerText;
   }
+}
+function containDots(elm) {
+  return elm.includes(".");
+}
+function checkSpace(arr, btnValue) {
+  if (arithmeticSigns.includes(btnValue)) {
+    if (isNaN(arr[arr.length - 1]) || arr[arr.length - 1] == "") return false;
+    else return true;
+  }
+  return false;
 }
 function clearScreen() {
   highlightBtnWhite(this);
@@ -89,8 +92,9 @@ function evaluate(input = screen.innerText) {
   highlightBtnWhite(equalBtn);
   setTimeout(() => equalBtn.classList.remove("pressedWhite"), 100);
   let inputsArr = input.split(" ");
-  removeExtraDots(inputsArr);
+
   removeSignsFromEnd(inputsArr);
+  screen.innerText = inputsArr.join(" ");
   multiplyDivide(inputsArr);
   plusMinus(inputsArr);
 
@@ -136,19 +140,6 @@ function plusMinus(arr) {
 function removeSignsFromEnd(arr) {
   if (arithmeticSigns.includes(arr[arr.length - 1])) {
     arr.pop();
-    screen.innerText = screen.innerText.slice(0, -1);
     removeSignsFromEnd(arr);
   }
-}
-function removeExtraDots(arr) {
-  arr = arr.map((num) => {
-    let testArr = num.split(".");
-    if (testArr.length > 1) {
-      testArr.splice(1, 0, ".");
-      let fixedNum = testArr.join("");
-      return fixedNum;
-    }
-    return num;
-  });
-  return arr;
 }
