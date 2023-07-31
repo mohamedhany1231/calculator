@@ -143,3 +143,16 @@ function removeSignsFromEnd(arr) {
     removeSignsFromEnd(arr);
   }
 }
+//  prevent over flow
+
+let resizeObs = new ResizeObserver(fixOverFlow);
+let screenParent = screen.parentElement;
+let parentWidth = window.getComputedStyle(screenParent).width.slice(0, -2);
+function fixOverFlow() {
+  let width = window.getComputedStyle(screen).width.slice(0, -2);
+  if (+width >= +parentWidth) {
+    screen.classList.add("overFlow");
+  } else if (+width < 0.8 * +parentWidth) screen.classList.remove("overFlow");
+}
+
+resizeObs.observe(screen);
