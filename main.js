@@ -2,6 +2,7 @@ let screen = document.querySelector(".screen .input");
 let screenOutput = document.querySelector(".screen .output");
 let arithmeticSigns = ["+", "-", "*", "/"];
 let backSpaceBtn = document.getElementById("backSpace");
+let equalBtn = document.querySelector(".equal");
 // create numberss
 for (i = 1; i < 10; i++) {
   let row = document.querySelector(`.row${2 + Math.floor((i - 1) / 3)}`);
@@ -33,6 +34,10 @@ function highlightBtn(btn) {
   btn.classList.add("pressed");
 }
 
+function highlightBtnWhite(btn) {
+  btn.classList.add("pressedWhite");
+}
+
 function addToScreen() {
   highlightBtn(this);
   setTimeout(() => this.classList.remove("pressed"), 100);
@@ -54,10 +59,14 @@ function addToScreen() {
   }
 }
 function clearScreen() {
+  highlightBtnWhite(this);
+  setTimeout(() => this.classList.remove("pressedWhite"), 100);
   screen.innerText = "";
   screenOutput.innerText = "";
 }
 function backSpace() {
+  highlightBtn(this);
+  setTimeout(() => this.classList.remove("pressed"), 100);
   screen.innerText = screen.innerText.slice(0, -1);
 }
 function add(a, b) {
@@ -77,6 +86,8 @@ function divide(a, b) {
 }
 
 function evaluate(input = screen.innerText) {
+  highlightBtnWhite(equalBtn);
+  setTimeout(() => equalBtn.classList.remove("pressedWhite"), 100);
   let inputsArr = input.split(" ");
   removeExtraDots(inputsArr);
   removeSignsFromEnd(inputsArr);

@@ -67,3 +67,7 @@ button.pressed {
   transform: scale(1.1);
   border-color: orange;
 }
+button.pressedWhite {
+  transform: scale(1.1);
+  border-color: rgb(187, 187, 187);
+}
